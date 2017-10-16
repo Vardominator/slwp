@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %} 
+
+<html lang="en-US">
+
+<div class="content-wrapper">
+    <div class="content-heading">
+        Ongoing Projects
+    </div>
+    <div class="row">
+            <div class="col-md-10">
+                {% for project in projects %}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{{ project.number }}</h3>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+    </div>
+</div>
+
+</html>
+
+{% endblock %}

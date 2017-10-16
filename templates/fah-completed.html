@@ -1,0 +1,77 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<html lang="en-US" ng-app="fahApp">
+
+<script src="{% static 'js/fah-controllers.js' %}"></script>
+<meta charset="utf-8">  <!-- it's important for d3.js -->
+<script src="{% static 'bower_components/d3/d3.js' %}"></script>
+<script src="{% static 'bower_components/nvd3/build/nv.d3.js' %}"></script> <!-- or use another assembly -->
+<script src="{% static 'bower_components/angular-nvd3/dist/angular-nvd3.js' %}"></script>
+<link rel="stylesheet" href="{% static 'bower_components/nvd3/build/nv.d3.css' %}">
+
+
+<div class="content-wrapper">
+
+      <div class="content-heading">
+            Completed Projects
+      </div>
+      
+      <div class="row">
+            <div class="col-md-10">
+                  <div ng-controller="fahCompletedController" ng-init="loadProjectNumbers()">
+                        {% comment %}<div ng-repeat="project in projects" class="panel panel-default">{% endcomment %}
+                        <div class="panel panel-default" ng-keypress="">
+                              <div ng-init="loadChartData()">
+                                    <div class="panel-heading">
+                                          {% comment %}<h3 class="panel-title"> {$ currentProjectNumber $}</h3>{% endcomment %}
+                                          <div class="col-sm-12">
+                                                <div class="row">
+                                                      <div class="col-xs-3">
+                                                            <input type="text" class="form-control" placeholder="Project" ng-model="currentProject" ng-change="loadChartData()">
+                                                      </div>
+                                                      <div class="col-xs-3">
+                                                            <input type="text" class="form-control" placeholder="Run" ng-model="currentRun" ng-change="loadChartData()">
+                                                      </div>
+                                                      <div class="col-xs-3">
+                                                            <input type="text" class="form-control" placeholder="Clone" ng-model="currentClone" ng-change="loadChartData()">
+                                                      </div>
+                                                      <div class="col-xs-3">
+                                                            <input type="text" class="form-control" placeholder="Attribute" ng-model="currentAttribute" ng-change="loadChartData()">
+                                                      </div>                                                                                                                                                                  
+                                                </div>
+                                          </div>
+                                    </div>
+                                    <div class="panel-body">
+                                          <nvd3 options="options"
+                                                data="currentChartData"
+                                                config="config"
+                                                on-ready="callback"
+                                                api="api">
+                                          </nvd3>
+                                    </div>
+                              </div>
+                        </div>
+                  </div>
+                  {% comment %}<div ng-controller="fahCompletedController">
+                              <div class="panel-heading">
+                                    <h3 class="panel-title"> TEST </h3>
+                              </div>
+                              <div class="panel-body">
+                                    <nvd3 options="options"
+                                          data="currentChartData"
+                                          config="config"
+                                          on-ready="callback">
+                                    </nvd3>
+                              </div>                  
+                  </div>{% endcomment %}
+            </div>
+      </div>
+</div>
+
+</html>
+
+{% endblock %}
