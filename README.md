@@ -1,1 +1,1 @@
-# slwp
+# Sorin Lab Web Platform
