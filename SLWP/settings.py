@@ -92,6 +92,22 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'debugdatabase',
+    },
+    'projectlist': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ProjectList',
+        'USER': 'varderes',
+        'PASSWORD': 'slwp',
+        'HOST': '134.139.52.4',
+        'PORT': '3306'
+    },
+    'bche': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'BCHE',
+        'USER': 'varderes',
+        'PASSWORD': 'slwp',
+        'HOST': '134.139.52.4',
+        'PORT': '3306'
     }
 }
 
