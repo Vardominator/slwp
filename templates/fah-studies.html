@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<html lang="en-US" ng-app="fahApp">
+
+{% comment %} <script src="{% static 'js/fah-controllers.js' %}"></script>
+<meta charset="utf-8">  <!-- it's important for d3.js -->
+<script src="{% static 'bower_components/d3/d3.js' %}"></script>
+<script src="{% static 'bower_components/nvd3/build/nv.d3.js' %}"></script> <!-- or use another assembly -->
+<script src="{% static 'bower_components/angular-nvd3/dist/angular-nvd3.js' %}"></script>
+<link rel="stylesheet" href="{% static 'bower_components/nvd3/build/nv.d3.css' %}"> {% endcomment %}
+
+<div class="content-wrapper">
+    <div class="content-heading">
+        Ongoing Studies
+    </div>
+</div>
+
+<div ng-controller="mainController">
+    {$ message $}
+
+  <div ng-view></div>
+
+
+</div>
+
+</html>
+ 
+{% endblock %}

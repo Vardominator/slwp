@@ -1,9 +1,20 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="fahApp">
 
 <head>
+    <!-- =============== ANGULAR ===============-->
+    <script src="{% static 'bower_components/angular/angular.js' %}"></script>
+    <script src="{% static 'bower_components/angular-route/angular-route.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+    {% comment %} <script src="{% static 'js/fah-controllers.js' %}"></script> {% endcomment %}
+    <meta charset="utf-8">  <!-- it's important for d3.js -->
+    <script src="{% static 'bower_components/d3/d3.js' %}"></script>
+    <script src="{% static 'bower_components/nvd3/build/nv.d3.js' %}"></script> <!-- or use another assembly -->
+    <script src="{% static 'bower_components/angular-nvd3/dist/angular-nvd3.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'bower_components/nvd3/build/nv.d3.css' %}">
+    
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
    <meta name="description" content="Bootstrap Admin App + jQuery">
@@ -27,15 +38,12 @@
 <link rel="stylesheet" href="{% static 'css/app.css' %}" id="maincss">
 
 
-<!-- =============== ANGULAR ===============-->
-<script src="{% static 'bower_components/angular/angular.js' %}"></script>
-<script src="{% static 'bower_components/angular-route/angular-route.js' %}"></script>
-<script src="{% static 'js/app.js' %}"></script>
+
 
 
 </head>
 
-<body>
+<body ng-controller="mainController">
    <div class="wrapper">
       <!-- top navbar-->
       <header class="topnavbar-wrapper">
@@ -231,14 +239,8 @@
                      <ul id="fah" class="nav sidebar-subnav collapse">
                         <li class="sidebar-subnav-header">Folding@Home</li>
                         <li class=" ">
-                           <a href="/foldingathome/fah-completed.html" title="Completed">
-                              <span data-localize="sidebar.nav.element.COMPLETED">Completed</span>
-                           </a>
-                           <a href="/foldingathome/fah-incomplete.html" title="Ongoing">
-                              <span data-localize="sidebar.nav.element.INPROGRESS">Ongoing</span>
-                           </a>
-                           <a href="/foldingathome/fah-information.html" title="Information">
-                              <span data-localize="sidebar.nav.element.INFORMATION">Information</span>
+                           <a href="/foldingathome/fah-studies.html" title="Studies">
+                              <span data-localize="sidebar.nav.element.STUDIES">Studies</span>
                            </a>
                         </li>
                      </ul>
@@ -681,7 +683,8 @@
       <section>
         {% block content %}
         {% endblock %}
-        
+
+         
       </section>
 
 
