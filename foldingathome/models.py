@@ -1,71 +1,42 @@
-# This is an auto-generated Django model module.
-# You'll have to do the following manually to clean this up:
-#   * Rearrange models' order
-#   * Make sure each model has one field with primary_key=True
-#   * Make sure each ForeignKey has `on_delete` set to the desired behavior.
-#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
-# Feel free to rename the models, but don't rename db_table values or
-# field names.
 from __future__ import unicode_literals
-
 from django.db import models
 
 
-# class Project(models.Model):
-#     number = models.IntegerField(primary_key=True)
-#     complete = models.IntegerField()
+class ProjectList(models.Model):
+    projNum = models.IntegerField(primary_key=True)
+    projType = models.CharField(max_length=10)
+    dbServer = models.CharField(max_length=100)
+    server = models.CharField(max_length=50)
+    numRun = models.IntegerField()
+    numClone = models.IntegerField()
+    numAtoms = models.IntegerField()
+    description = models.CharField(max_length=100)
 
-#     class Meta:
-#         managed = False
-#         db_table = 'project'
-
-
-# class Run(models.Model):
-#     project_number = models.IntegerField(primary_key=True)
-#     number = models.IntegerField(primary_key=True)
-
-#     class Meta:
-#         managed = False
-#         db_table = 'run'
+    class Meta:
+        managed = False
+        db_table = 'ProjectList'
+        app_label = 'projectlist'
 
 
-# class Clone(models.Model):
-#     project_number = models.IntegerField(primary_key=True)
-#     run_number = models.IntegerField(primary_key=True)
-#     number = models.IntegerField(primary_key=True)
+class Bche(models.Model):
+    proj = models.IntegerField(primary_key=True)
+    run = models.IntegerField()
+    clone = models.IntegerField()
+    frame = models.IntegerField()
+    rmsd_pro = models.FloatField()
+    rmsd_complex = models.FloatField()
+    mindist = models.FloatField()
+    rg_pro = models.FloatField()
+    E_vdw = models.FloatField()
+    E_qq = models.FloatField()
+    dssp = models.CharField(max_length=550)
+    Nhelix = models.IntegerField()
+    Nbeta = models.IntegerField()
+    Ncoil = models.IntegerField()
+    dateacquried = models.DateField()
+    timeacquired = models.TimeField()
 
-#     class Meta:
-#         managed = False
-#         db_table = 'clone'
-
-
-# class Time(models.Model):
-#     project_number = models.IntegerField(primary_key=True)
-#     run_number = models.IntegerField(primary_key=True)
-#     clone_number = models.IntegerField(primary_key=True)
-#     number = models.IntegerField(primary_key=True)
-
-#     class Meta:
-#         managed = False
-#         db_table = 'time'
-
-
-# class Attribute(models.Model):
-#     name = models.CharField(primary_key=True, max_length=100)
-
-#     class Meta:
-#         managed = False
-#         db_table = 'attribute'
-
-
-# class TimeAttribute(models.Model):
-#     project_number = models.IntegerField(primary_key=True)
-#     run_number = models.IntegerField(primary_key=True)
-#     clone_number = models.IntegerField(primary_key=True)
-#     time_number = models.IntegerField(primary_key=True)
-#     attribute_name = models.CharField(primary_key=True, max_length=100)
-#     value = models.DecimalField(max_digits=18, decimal_places=9)
-
-#     class Meta:
-#         managed = False
-#         db_table = 'time_attribute'
+    class Meta:
+        managed = False
+        db_table = 'BCHE'
+        app_label = 'bche'
