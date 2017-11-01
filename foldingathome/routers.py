@@ -1,4 +1,5 @@
 class FahRouter(object):
+
     """
     A router to control all databased operations on models in
     the FAH application.
@@ -7,7 +8,7 @@ class FahRouter(object):
     def db_for_read(self, model, **hints):
         """
         Suggest the database that should be used for read operations
-        in objects of type model.  
+        in objects of type model.
         """
         if model._meta.app_label == 'projectlist':
             return 'projectlist'
