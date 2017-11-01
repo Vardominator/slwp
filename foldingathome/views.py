@@ -12,13 +12,22 @@ def redirect_to_fah_information():
     return redirect('/foldingathome/fah-information.html')
 
 
+def fah_studies(request):
+    return render(request, 'fah-studies.html')
+
+def fah_studies_table(request):
+    return render(request, 'fah-studies-table.html')
+
+def fah_study(request):
+    return render(request, 'fah-study.html')
+
 def fah_completed(request):
     return render(request, 'fah-completed.html')
 
 
-def fah_incomplete(request):
-    projects = Project.objects.filter(complete=0)
-    return render(request, 'fah-incomplete.html', {'projects': projects})
+# def fah_incomplete(request):
+#     projects = Project.objects.filter(complete=0)
+#     return render(request, 'fah-incomplete.html', {'projects': projects})
 
 
 # class ProjectViewSet(viewsets.ModelViewSet):

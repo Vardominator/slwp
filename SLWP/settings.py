@@ -25,7 +25,7 @@ SECRET_KEY = 'fd@zu0e5o$ze^yf#qqk4761z)cn6y7607l*da1jbm+_-ic^&$z'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['134.139.127.51', '134.139.127.47', 'localhost']
+ALLOWED_HOSTS = ['134.139.127.51', '134.139.127.47', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -92,8 +92,26 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'debugdatabase',
+    },
+    'projectlist': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ProjectList',
+        'USER': 'varderes',
+        'PASSWORD': 'slwp',
+        'HOST': '134.139.52.4',
+        'PORT': '3306'
+    },
+    'bche': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'BCHE',
+        'USER': 'varderes',
+        'PASSWORD': 'slwp',
+        'HOST': '134.139.52.4',
+        'PORT': '3306'
     }
 }
+
+DATABASE_ROUTERS = ['foldingathome.routers.FahRouter']
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
