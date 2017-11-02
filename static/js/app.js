@@ -57,11 +57,12 @@ fahApp.controller('mainController',
 fahApp.controller('studyController', ['$scope', '$routeParams', '$http', '$location', '$route', '$window',
     function($scope, $routeParams, $http, $location, $route, $window){
         $scope.study = $routeParams.study;
-
-        $scope.retrieveStudyData = function(){
-            $http.get('/foldingathome/api/BCHE/?proj=8202&run=0&clone=0')
+        $scope.retrieveProjectList = function(){
+            $http.get('/foldingathome/api/projectList')
             .then(function(data){
-                $scope.study = data.data
+                var projectList = data.data
+                var projectGroups = groupBy(projectList, project => project.projType)
+                $scope.study = projectGroups.get($scope.study)
                 console.log($scope.study)
             })
         }

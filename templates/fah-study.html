@@ -1,5 +1,36 @@
-<div ng-init="retrieveStudyData()">
-    <div>
-    <p>{$ study $}</p>
-</div>
-</div>
+<table class="table dataTable table-striped table-bordered mb0 d-table-fixed" role="grid" style="width: 100%;" ng-init="retrieveProjectList()">
+        <thead>
+          <tr role="row">
+            <th>
+              Project
+            </th>
+            <th>
+              Description
+            </th>
+            <th>
+              Run Count
+            </th>
+            <th>
+              Clone Count
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+      
+          <tr ng-repeat="project in study">
+            <td>
+              <button ng-click="navigateToStudy(study.molecule)" style="height:100%; width:100%;" class="btn btn-primary">{$ project.projNum $}</button>
+            </td>
+            <td>
+              {$ project.description $}
+            </td>
+            <td>
+              {$ project.numRun $}
+            </td>
+            <td>
+              {$ project.numClone $}
+            </td>
+          </tr>
+      
+        </tbody>
+</table>
