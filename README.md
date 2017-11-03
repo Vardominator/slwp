@@ -1,8 +1,11 @@
 # Sorin Lab Web Platform
 
 ## TODOs
+### Front-end
 * Update bower.json with all active packages
-* ng-table filter for studies on main page
+* Breadcrumb for page navigation
+* CSV download for tables
+* Filters for table parameters
 
 ## Instructions for the following must be written
 * Installing python3 and pip
