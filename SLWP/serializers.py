@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from foldingathome.models import ProjectList, Bche
+from foldingathome.models import ProjectList, Bche, BcheProjectSummary
 
 
 class ProjectListSerializer(serializers.ModelSerializer):
@@ -39,4 +39,22 @@ class BcheSerializer(serializers.ModelSerializer):
             'Ncoil',
             'dateacquried',
             'timeacquired'
+        )
+
+
+class BcheProjectSummarySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = BcheProjectSummary
+        fields = (
+            'proj',
+            'proj_desc',
+            'numRuns',
+            'numClones',
+            'avgRMSDPro',
+            'stddevRMSDPro',
+            'avgRMSDComplex',
+            'stddevRMSDComplex',
+            'rgPro',
+            'stddevRGPro'
         )

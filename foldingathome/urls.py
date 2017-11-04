@@ -7,6 +7,7 @@ router = routers.DefaultRouter()
 # RETURNS PROJECT QUERY SET FROM VIEWS
 router.register(r'^projectList', foldingathome_views.ProjectListViewSet)
 router.register(r'^BCHE', foldingathome_views.BcheViewSet)
+router.register(r'^BCHE_project_summary', foldingathome_views.BcheProjectSummaryViewSet)
 
 urlpatterns = [
     url(r'^$', foldingathome_views.fah_information),
