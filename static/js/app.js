@@ -17,6 +17,16 @@ fahApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $
     })
 }])
 
+fahApp.factory('service', function($http){
+    var getProjectSummary = function(study){
+        return $http({method: "GET", url:'/foldingathome/api/' + study + '_project_summary/'}).then(function(result){
+            return result.data
+        })
+    }
+
+    return {getProjectSummary: getProjectSummary}
+});
+
 // main controller for fah studies, navigates to individual studies
 fahApp.controller('mainController',
     function($scope, $location, $http) {
@@ -54,17 +64,28 @@ fahApp.controller('mainController',
 )
 
 // controller for fah study table, navigates to individual clones
-fahApp.controller('studyController', ['$scope', '$routeParams', '$http', '$location', '$route', '$window',
-    function($scope, $routeParams, $http, $location, $route, $window){
+fahApp.controller('studyController', ['$scope', '$routeParams', '$http', '$location', '$route', '$window', 'service',
+    function($scope, $routeParams, $http, $location, $route, $window, service){
         $scope.study = $routeParams.study;
+        console.log($scope.study)
         $scope.retrieveProjectList = function(){
-            $http.get('/foldingathome/api/projectList')
-            .then(function(data){
-                var projectList = data.data
-                var projectGroups = groupBy(projectList, project => project.projType)
-                $scope.study = projectGroups.get($scope.study)
-                console.log($scope.study)
-            })
+            var projectSummaryPromise = service.getProjectSummary($scope.study)
+            projectSummaryPromise.then(function(result){
+                $scope.data = result
+                $scope.keys = Object.keys($scope.data[0])
+                console.log($scope.keys)
+                console.log($scope.data)
+            });
+            // var url = '/foldingathome/api/' + $scope.study + '_project_summary/'
+            // console.log(url)
+            // $http.get(url)
+            // .then(function(data){
+            //     var projectSummary = data.data
+            //     console.log(projectSummary)
+            //     // var projectGroups = groupBy(projectList, project => project.projType)
+            //     // $scope.study = projectGroups.get($scope.study)
+            //     // console.log($scope.study)
+            // })
         }
     }
 ])

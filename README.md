@@ -2,6 +2,8 @@
 
 ## TODOs
 ### Front-end
+* Upgrade to new bootstrap admin theme
+* Added spinner load for project summary api call
 * Update bower.json with all active packages
 * Breadcrumb for page navigation
 * CSV download for tables
