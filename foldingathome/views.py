@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from foldingathome.models import ProjectList, Bche
-from SLWP.serializers import ProjectListSerializer, BcheSerializer
+from foldingathome.models import ProjectList, Bche, BcheProjectSummary
+from SLWP.serializers import ProjectListSerializer, BcheSerializer, BcheProjectSummarySerializer
 from rest_framework import viewsets
 from django_filters.rest_framework import DjangoFilterBackend
 
@@ -67,3 +67,9 @@ class BcheViewSet(viewsets.ModelViewSet):
         'dateacquried',
         'timeacquired'
     )
+
+
+class BcheProjectSummaryViewSet(viewsets.ModelViewSet):
+    queryset = BcheProjectSummary.objects.all()
+    serializer_class = BcheProjectSummarySerializer
+    filter_backends = (DjangoFilterBackend,)
