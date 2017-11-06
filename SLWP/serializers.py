@@ -47,14 +47,14 @@ class BcheProjectSummarySerializer(serializers.ModelSerializer):
     class Meta:
         model = BcheProjectSummary
         fields = (
-            'proj',
-            'proj_desc',
-            'numRuns',
-            'numClones',
-            'avgRMSDPro',
-            'stddevRMSDPro',
-            'avgRMSDComplex',
-            'stddevRMSDComplex',
-            'rgPro',
-            'stddevRGPro'
+            'Proj',
+            'Description',
+            'NumberOfRuns',
+            'NumberOfClones',
+            'AverageRMSDPro',
+            'StdDevRMSDPro',
+            'AverageRMSDComplex',
+            'StdDevRMSDComplex',
+            'RGPro',
+            'StdDevRGPro'
         )

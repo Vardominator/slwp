@@ -42,16 +42,16 @@ class Bche(models.Model):
         app_label = 'bche'
 
 class BcheProjectSummary(models.Model):
-    proj = models.IntegerField(db_column='Project Number', primary_key=True)
-    proj_desc = models.CharField(max_length=100, db_column='Project Description')
-    numRuns = models.IntegerField(db_column='# of Runs')
-    numClones = models.IntegerField(db_column='# of Clones')
-    avgRMSDPro = models.FloatField(db_column='Average RMSD of Protein')
-    stddevRMSDPro = models.FloatField(db_column='Standard Deviation for RMSD of Protein')
-    avgRMSDComplex = models.FloatField(db_column='Average RMSD of Complex')
-    stddevRMSDComplex = models.FloatField(db_column='Standard Deviation for RMSD of Complex')
-    rgPro = models.FloatField(db_column='RG of Protein')
-    stddevRGPro = models.FloatField(db_column='Standard Deviation for RG of Protein')
+    Proj = models.IntegerField(db_column='Project Number', primary_key=True)
+    Description = models.CharField(max_length=100, db_column='Project Description')
+    NumberOfRuns = models.IntegerField(db_column='# of Runs')
+    NumberOfClones = models.IntegerField(db_column='# of Clones')
+    AverageRMSDPro = models.FloatField(db_column='Average RMSD of Protein')
+    StdDevRMSDPro = models.FloatField(db_column='Standard Deviation for RMSD of Protein')
+    AverageRMSDComplex = models.FloatField(db_column='Average RMSD of Complex')
+    StdDevRMSDComplex = models.FloatField(db_column='Standard Deviation for RMSD of Complex')
+    RGPro = models.FloatField(db_column='RG of Protein')
+    StdDevRGPro = models.FloatField(db_column='Standard Deviation for RG of Protein')
 
     class Meta:
         managed = False
