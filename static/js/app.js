@@ -66,25 +66,14 @@ fahApp.controller('mainController',
 fahApp.controller('studyController', ['$scope', '$routeParams', '$http', '$location', '$route', '$window', 'service',
     function($scope, $routeParams, $http, $location, $route, $window, service){
         $scope.study = $routeParams.study;
-        console.log($scope.study)
+        $scope.receivedResponse = 0
         $scope.retrieveProjectList = function(){
             var projectSummaryPromise = service.getProjectSummary($scope.study)
             projectSummaryPromise.then(function(result){
                 $scope.data = result
                 $scope.keys = Object.keys($scope.data[0])
-                console.log($scope.keys)
-                console.log($scope.data)
+                $scope.receivedResponse = 1
             });
-            // var url = '/foldingathome/api/' + $scope.study + '_project_summary/'
-            // console.log(url)
-            // $http.get(url)
-            // .then(function(data){
-            //     var projectSummary = data.data
-            //     console.log(projectSummary)
-            //     // var projectGroups = groupBy(projectList, project => project.projType)
-            //     // $scope.study = projectGroups.get($scope.study)
-            //     // console.log($scope.study)
-            // })
         }
     }
 ])
