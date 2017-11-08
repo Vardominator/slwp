@@ -2,7 +2,7 @@
  *
  * Angle - Bootstrap Admin App + jQuery
  *
- * Version: 3.7.5
+ * Version: 3.8
  * Author: @themicon_co
  * Website: http://themicon.co
  * License: https://wrapbootstrap.com/help/licenses

@@ -4,40 +4,40 @@
 <html lang="en" ng-app="fahApp">
 
 <head>
+    <meta charset="utf-8">
+    <title>Sorin Lab Web Platform</title>
+    <script src="{% static 'vendor/jquery/dist/jquery.js' %}"></script>    
     <!-- =============== ANGULAR ===============-->
     <script src="{% static 'bower_components/angular/angular.js' %}"></script>
     <script src="{% static 'bower_components/angular-route/angular-route.js' %}"></script>
     <script src="{% static 'js/app.js' %}"></script>
-    {% comment %} <script src="{% static 'js/fah-controllers.js' %}"></script> {% endcomment %}
-    <meta charset="utf-8">  <!-- it's important for d3.js -->
+
+    <!-- =============== NVD3 ===============-->
     <script src="{% static 'bower_components/d3/d3.js' %}"></script>
     <script src="{% static 'bower_components/nvd3/build/nv.d3.js' %}"></script> <!-- or use another assembly -->
     <script src="{% static 'bower_components/angular-nvd3/dist/angular-nvd3.js' %}"></script>
     <link rel="stylesheet" href="{% static 'bower_components/nvd3/build/nv.d3.css' %}">
     
-   <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-   <meta name="description" content="Bootstrap Admin App + jQuery">
-   <meta name="keywords" content="app, responsive, jquery, bootstrap, dashboard, admin">
-   <title>Sorin Lab Web Platform</title>
-   <!-- =============== VENDOR STYLES ===============-->
-   <!-- FONT AWESOME-->
-   <link rel="stylesheet" href="{% static 'vendor/fontawesome/css/font-awesome.min.css' %}">
-   <!-- SIMPLE LINE ICONS-->
-   <link rel="stylesheet" href="{% static 'vendor/simple-line-icons/css/simple-line-icons.css' %}">
-   <!-- ANIMATE.CSS-->
-   <link rel="stylesheet" href="{% static 'vendor/animate.css/animate.min.css' %}">
-   <!-- WHIRL (spinners)-->
-   <link rel="stylesheet" href="{% static 'vendor/whirl/dist/whirl.css' %}">
-   <!-- =============== PAGE VENDOR STYLES ===============-->
-   <!-- WEATHER ICONS-->
-   <link rel="stylesheet" href="{% static 'vendor/weather-icons/css/weather-icons.min.css' %}">
-   <!-- =============== BOOTSTRAP STYLES ===============-->
-   <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" id="bscss">
-   <!-- =============== APP STYLES ===============-->
-<link rel="stylesheet" href="{% static 'css/app.css' %}" id="maincss">
-
-
+    <!-- =============== WRAP BOOTSTRAP ===============-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Bootstrap Admin App + jQuery">
+    <meta name="keywords" content="app, responsive, jquery, bootstrap, dashboard, admin">
+    <!-- =============== VENDOR STYLES ===============-->
+    <!-- FONT AWESOME-->
+    <link rel="stylesheet" href="{% static 'vendor/fontawesome/css/font-awesome.min.css' %}">
+    <!-- SIMPLE LINE ICONS-->
+    <link rel="stylesheet" href="{% static 'vendor/simple-line-icons/css/simple-line-icons.css' %}">
+    <!-- ANIMATE.CSS-->
+    <link rel="stylesheet" href="{% static 'vendor/animate.css/animate.min.css' %}">
+    <!-- WHIRL (spinners)-->
+    <link rel="stylesheet" href="{% static 'vendor/whirl/dist/whirl.css' %}">
+    <!-- =============== PAGE VENDOR STYLES ===============-->
+    <!-- WEATHER ICONS-->
+    <link rel="stylesheet" href="{% static 'vendor/weather-icons/css/weather-icons.min.css' %}">
+    <!-- =============== BOOTSTRAP STYLES ===============-->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" id="bscss">
+    <!-- =============== APP STYLES ===============-->
+    <link rel="stylesheet" href="{% static 'css/app.css' %}" id="maincss">
 
 
 
@@ -702,9 +702,6 @@
       </footer>
    </div>
 
-  
-
-
 
 
 
@@ -734,8 +731,24 @@
    <script src="{% static 'js/demo/demo-rtl.js' %}"></script>
    <!-- =============== APP SCRIPTS ===============-->
    <script src="{% static 'js/app-theme.js' %}"></script>
-
-
+   <!-- =============== PAGE VENDOR SCRIPTS ===============-->
+   <!-- SPARKLINE-->
+   <script src="{% static 'vendor/sparkline/index.js' %}"></script>
+   <!-- FLOT CHART-->
+   <script src="{% static 'vendor/flot/jquery.flot.js' %}"></script>
+   <script src="{% static 'vendor/flot.tooltip/js/jquery.flot.tooltip.min.js' %}"></script>
+   <script src="{% static 'vendor/flot/jquery.flot.resize.js' %}"></script>
+   <script src="{% static 'vendor/flot/jquery.flot.pie.js' %}"></script>
+   <script src="{% static 'vendor/flot/jquery.flot.time.js' %}"></script>
+   <script src="{% static 'vendor/flot/jquery.flot.categories.js' %}"></script>
+   <script src="{% static 'vendor/flot-spline/js/jquery.flot.spline.min.js' %}"></script>
+   <!-- EASY PIE CHART-->
+   <script src="{% static 'vendor/jquery.easy-pie-chart/dist/jquery.easypiechart.js' %}"></script>
+   <!-- MOMENT JS-->
+   <script src="{% static 'vendor/moment/min/moment-with-locales.min.js' %}"></script>
+   <!-- DEMO-->
+   <script src="{% static 'js/demo/demo-flot.js' %}"></script>
+   
 </body>
 
 </html>
