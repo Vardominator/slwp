@@ -1,4 +1,4 @@
-var fahApp = angular.module('fahApp', ['ngRoute']);
+var fahApp = angular.module('fahApp', ['ngRoute', 'ngTableToCsv']);
 
 fahApp.config(function($interpolateProvider) {
   $interpolateProvider.startSymbol('{$');
