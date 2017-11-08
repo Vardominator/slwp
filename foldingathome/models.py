@@ -46,12 +46,12 @@ class BcheProjectSummary(models.Model):
     Description = models.CharField(max_length=100, db_column='Project Description')
     NumberOfRuns = models.IntegerField(db_column='# of Runs')
     NumberOfClones = models.IntegerField(db_column='# of Clones')
-    AverageRMSDPro = models.FloatField(db_column='Average RMSD of Protein')
-    StdDevRMSDPro = models.FloatField(db_column='Standard Deviation for RMSD of Protein')
-    AverageRMSDComplex = models.FloatField(db_column='Average RMSD of Complex')
-    StdDevRMSDComplex = models.FloatField(db_column='Standard Deviation for RMSD of Complex')
-    RGPro = models.FloatField(db_column='RG of Protein')
-    StdDevRGPro = models.FloatField(db_column='Standard Deviation for RG of Protein')
+    AverageRMSDPro = models.DecimalField(db_column='Average RMSD of Protein', max_digits=20,  decimal_places=2)
+    StdDevRMSDPro = models.DecimalField(db_column='Standard Deviation for RMSD of Protein', max_digits=20,  decimal_places=2)
+    AverageRMSDComplex = models.DecimalField(db_column='Average RMSD of Complex', max_digits=20,  decimal_places=2)
+    StdDevRMSDComplex = models.DecimalField(db_column='Standard Deviation for RMSD of Complex', max_digits=20,  decimal_places=2)
+    RGPro = models.DecimalField(db_column='RG of Protein', max_digits=20,  decimal_places=2)
+    StdDevRGPro = models.DecimalField(db_column='Standard Deviation for RG of Protein', max_digits=20,  decimal_places=2)
 
     class Meta:
         managed = False

@@ -23,7 +23,6 @@ fahApp.factory('service', function($http){
             return result.data
         })
     }
-
     return {getProjectSummary: getProjectSummary}
 });
 
