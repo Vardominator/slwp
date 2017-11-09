@@ -6,9 +6,9 @@
 * Added spinner load for project summary api call (DONE)
 * Remove unnecessary wrapbootstrap script imports
 * Update bower.json with all active packages
-* Breadcrumb for page navigation
-* CSV download for tables
-* Filters for table parameters
+* Breadcrumb for page navigation (DONE)
+* CSV download for tables (DONE)
+* Cache and Refresh data tables (DONE)
 
 ## Instructions for the following must be written
 * Installing python3 and pip

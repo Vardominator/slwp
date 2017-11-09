@@ -2,138 +2,178 @@ var fahApp = angular.module('fahApp', ['ngRoute', 'ngTableToCsv']);
 
 fahApp.config([
     '$httpProvider',
-    function ($httpProvider){
+    function ($httpProvider) {
         $httpProvider.defaults.xsrfCookieName = 'csrftoken';
         $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
     }
 ]);
-fahApp.config(function($interpolateProvider) {
-  $interpolateProvider.startSymbol('{$');
-  $interpolateProvider.endSymbol('$}');
+fahApp.config(function ($interpolateProvider) {
+    $interpolateProvider.startSymbol('{$');
+    $interpolateProvider.endSymbol('$}');
 });
 
-fahApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+fahApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     $routeProvider
-    .when('/', {
-        templateUrl: '/foldingathome/fah-studies-table.html',
-        controller: 'mainController'
-    })
-    .when('/:study', {
-        templateUrl: '/foldingathome/fah-study.html',
-        controller: 'studyController'
-    })
-    .when('/:study/:project', {
-        templateUrl: '/foldingathome/fah-project.html',
-        controller: 'projectController'
-    })
+        .when('/', {
+            templateUrl: '/foldingathome/fah-studies-table.html',
+            controller: 'mainController'
+        })
+        .when('/:study', {
+            templateUrl: '/foldingathome/fah-study.html',
+            controller: 'studyController'
+        })
+        .when('/:study/:project', {
+            templateUrl: '/foldingathome/fah-project.html',
+            controller: 'projectController'
+        })
+        .when('/:study/:project/:run', {
+            templateUrl: '/foldingathome/fah-run.html',
+            controller: 'runController'
+        })
 }])
 
-fahApp.factory('service', function($http){
-    var getProjectSummary = function(study){
-        return $http({method: "GET", url:'/foldingathome/api/' + study + '_project_summary/'}).then(function(result){
+fahApp.factory('service', function ($http, $cacheFactory) {
+    var getProjectSummary = function (apiUrl) {
+        return $http({ method: "GET", cache:true, url: apiUrl }).then(function (result) {
             return result.data
         })
     }
-    var getRunSummary = function(study, project){
-        return $http({method: "GET", url:'/foldingathome/api/' + study + '_project_run_summary/?project=' + project}).then(function(result){
+    var getRunSummary = function (apiUrl) {
+        return $http({ method: "GET", cache: true, url: apiUrl }).then(function (result) {
             return result.data
         })
     }
-    return {getProjectSummary: getProjectSummary,
-            getRunSummary: getRunSummary}
+    var getCloneSummary = function (study, project, clone) {
+        return 0
+    }
+    return {
+        getProjectSummary: getProjectSummary,
+        getRunSummary: getRunSummary,
+        getCloneSummary: getCloneSummary
+    }
 });
 
-// main controller for fah studies, navigates to individual studies
+// MAIN CONTROLLER FOR FAH STUDIES, NAVIGATES TO INDIVIDUAL STUDIES
 fahApp.controller('mainController',
-    function($scope, $location, $http) {
+    function ($scope, $location, $http) {
 
-        $scope.retrieveProjectList = function(){
+        $scope.retrieveProjectList = function () {
             $http.get('/foldingathome/api/projectList')
-            .then(function(data){
-                $scope.projectList = data.data
-                $scope.studies = buildTable($scope.projectList)
-            })
+                .then(function (data) {
+                    $scope.projectList = data.data
+                    $scope.studies = buildTable($scope.projectList)
+                })
         }
 
-        function buildTable(projectList){
+        function buildTable(projectList) {
             var projectGroups = groupBy(projectList, project => project.projType)
             var studies = [];
-            projectGroups.forEach(function(study, key) {
+            projectGroups.forEach(function (study, key) {
                 var simCount = 0
-                study.forEach(function(project, key){
+                study.forEach(function (project, key) {
                     simCount += project.numClone * project.numRun
                 })
                 var projectCount = study.length
-                var currStudy = {'molecule': key,
-                                 'projectCount': projectCount, 
-                                 'simCount': nFormatter(simCount)
+                var currStudy = {
+                    'molecule': key,
+                    'projectCount': projectCount,
+                    'simCount': nFormatter(simCount)
                 }
                 studies.push(currStudy)
             });
             return studies
         }
 
-        $scope.navigateToStudy = function(study){
-            $location.path("/" + study).search({study:study})   
+        $scope.navigateToStudy = function (study) {
+            $location.path("/" + study).search({ study: study })
         }
     }
 )
 
-// controller for fah study table, navigates to project
+// CONTROLLER FOR SELECTED STUDY, NAVIGATES TO PROJECT
 fahApp.controller('studyController', ['$scope', '$routeParams', '$http', '$location', '$route', '$window', 'service',
-    function($scope, $routeParams, $http, $location, $route, $window, service){
+    function ($scope, $routeParams, $http, $location, $route, $window, service) {
         $scope.study = $routeParams.study
         $scope.receivedResponse = 0
-        $scope.retrieveProjectList = function(){
-            // var projectSummaryPromise = service.getProjectSummary($scope.study)
-            // var projectSummaryPromise = service.test()
-            // projectSummaryPromise.then(function(result){
-            //     $scope.data = result
-            //     $scope.keys = Object.keys($scope.data[0])
-            //     $scope.receivedResponse = 1
-            // });
-            $scope.data = [{'Proj': 8202}]
-            $scope.keys = Object.keys($scope.data[0])
-            $scope.receivedResponse = 1
+        $scope.retrieveProjectList = function () {
+            $scope.apiUrl = '/foldingathome/api/' + study + '_project_summary/'
+            var projectSummaryPromise = service.getProjectSummary($scope.apiUrl)
+            projectSummaryPromise.then(function (result) {
+                $scope.data = result
+                $scope.keys = Object.keys($scope.data[0])
+                $scope.receivedResponse = 1
+            });
+            // $scope.data = [{'Proj': 8202}]
+            // $scope.keys = Object.keys($scope.data[0])
+            // $scope.receivedResponse = 1
         }
-
-        // navigate to study
-        $scope.navigateToProject = function(project){
-            console.log(project)
-            $location.path("/" + $scope.study + "/" + project).search({project:project})   
-        }        
-
-        // navigate back
-        $scope.backToStudiesTable = function() {
+        $scope.refreshProjectSummary = function(){
+            var cache = $cacheFactory.get('$http')
+            cache.remove($scope.apiUrl)
+            $scope.retrieveProjectList()
+        }
+        // NAVIGATE TO PROJECT CLICK
+        $scope.navigateToProject = function (project) {
+            $location.path("/" + $scope.study + "/" + project).search({ project: project })
+        }
+        $scope.backToStudiesTable = function () {
             window.history.back(-1)
         };
     }
 ])
 
-// controller for project table, navigates to run
-fahApp.controller('projectController', ['$scope', '$routeParams', '$http', '$location', '$route', '$window', 'service',
-    function($scope, $routeParams, $http, $location, $route, $window, service){
+// CONTROLLER FOR SELECTED PROJECT, NAVIGATES TO RUN
+fahApp.controller('projectController', ['$scope', '$routeParams', '$http', '$location', '$route', '$window', 'service', '$cacheFactory',
+    function ($scope, $routeParams, $http, $location, $route, $window, service, $cacheFactory) {
         $scope.study = $routeParams.study
         $scope.project = $routeParams.project
         $scope.receivedResponse = 0
-        $scope.retrieveRunList = function(){
-            var runSummaryPromise = service.getRunSummary($scope.study, $scope.project)
-            projectSummaryPromise.then(function(result){
-                // $scope.data = result
-                // $scope.keys = Object.keys($scope.data[0])
-                // $scope.receivedResponse = 1
+        $scope.retrieveRunList = function () {
+            $scope.apiUrl = '/foldingathome/api/' + $scope.study + '_project_run_summary/?project=' + $scope.project
+            var runSummaryPromise = service.getRunSummary($scope.apiUrl)
+            $scope.receivedResponse = 0
+            runSummaryPromise.then(function (result) {
+                $scope.data = result
+                $scope.keys = Object.keys($scope.data[0])
+                $scope.receivedResponse = 1
             });
         }
-        $scope.backToStudiesTable = function() {
-            window.history.back(-2)
-        };
-        $scope.backToProjectsTable = function() {
+        $scope.refreshRunSummary = function(){
+            var cache = $cacheFactory.get('$http')
+            cache.remove($scope.apiUrl)
+            $scope.retrieveRunList()
+        }
+
+        // NAVIGATE TO RUN CLICK
+        $scope.navigateToRun = function (run) {
+            $location.path("/" + $scope.study + "/" + $scope.project + "/" + run).search({ run: run })
+        }
+        $scope.backToProjectsTable = function () {
             window.history.back(-1)
         };
     }
 ])
 
-
+// CONTROLLER FOR SELECTED RUN, NAVIGATES TO CLONE
+fahApp.controller('runController', ['$scope', '$routeParams', '$http', '$location', '$route', '$window', 'service',
+    function ($scope, $routeParams, $http, $location, $route, $window, service) {
+        $scope.study = $routeParams.study
+        $scope.project = $routeParams.project
+        $scope.run = $routeParams.run
+        $scope.receivedResponse = 0
+        $scope.retrieveCloneList = function () {
+            var cloneSummaryPromise = service.getCloneSummary($scope.study, $scope.project, $scope.run)
+            cloneSummaryPromise.then(function (result) {
+                $scope.data = result
+                $scope.keys = Object.keys($scope.data[0])
+                $scope.receivedResponse = 1
+            });
+        }
+        $scope.backToRunsTable = function () {
+            window.history.back(-1)
+        };
+    }
+])
 
 // helpers
 function groupBy(list, keyGetter) {
@@ -152,13 +192,13 @@ function groupBy(list, keyGetter) {
 
 function nFormatter(num) {
     if (num >= 1000000000) {
-       return (num / 1000000000).toFixed(1).replace(/\.0$/, '') + 'G';
+        return (num / 1000000000).toFixed(1).replace(/\.0$/, '') + 'G';
     }
     if (num >= 1000000) {
-       return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+        return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
     }
     if (num >= 1000) {
-       return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+        return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
     }
     return num;
 }

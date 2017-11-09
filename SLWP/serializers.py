@@ -62,9 +62,9 @@ class BcheProjectSummarySerializer(serializers.ModelSerializer):
 
 class BcheProjectRunSummarySerializer(serializers.Serializer):
     Run = serializers.IntegerField()
-    AverageRMSDPro = serializers.FloatField()
-    StdDevRMSDPro = serializers.FloatField()
-    AverageRMSDComplex = serializers.FloatField()
-    StdDevRMSDComplex = serializers.FloatField()
-    RGPro = serializers.FloatField()
-    StdDevRGPro = serializers.FloatField()
+    AverageRMSDPro = serializers.DecimalField(max_digits=20, decimal_places=2)
+    StdDevRMSDPro = serializers.DecimalField(max_digits=20, decimal_places=2)
+    AverageRMSDComplex = serializers.DecimalField(max_digits=20, decimal_places=2)
+    StdDevRMSDComplex = serializers.DecimalField(max_digits=20, decimal_places=2)
+    RGPro = serializers.DecimalField(max_digits=20, decimal_places=2)
+    StdDevRGPro = serializers.DecimalField(max_digits=20, decimal_places=2)
