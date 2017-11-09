@@ -96,7 +96,7 @@ fahApp.controller('studyController', ['$scope', '$routeParams', '$http', '$locat
         $scope.study = $routeParams.study
         $scope.receivedResponse = 0
         $scope.retrieveProjectList = function () {
-            $scope.apiUrl = '/foldingathome/api/' + study + '_project_summary/'
+            $scope.apiUrl = '/foldingathome/api/' + $scope.study + '_project_summary/'
             var projectSummaryPromise = service.getProjectSummary($scope.apiUrl)
             projectSummaryPromise.then(function (result) {
                 $scope.data = result
