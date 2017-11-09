@@ -58,3 +58,13 @@ class BcheProjectSummarySerializer(serializers.ModelSerializer):
             'RGPro',
             'StdDevRGPro'
         )
+
+
+class BcheProjectRunSummarySerializer(serializers.Serializer):
+    Run = serializers.IntegerField()
+    AverageRMSDPro = serializers.FloatField()
+    StdDevRMSDPro = serializers.FloatField()
+    AverageRMSDComplex = serializers.FloatField()
+    StdDevRMSDComplex = serializers.FloatField()
+    RGPro = serializers.FloatField()
+    StdDevRGPro = serializers.FloatField()
