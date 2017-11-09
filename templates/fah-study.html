@@ -1,3 +1,7 @@
+<ol class="breadcrumb" style="margin-top:-22px">
+    <li><a href="#" ng-click="backToStudiesTable()">Active Studies</a></li>
+    <li>{$ study $}</a>
+ </ol>
 <div class="col-lg-12" ng-init="retrieveProjectList()">
     <div class="panel panel-default" ng-switch="receivedResponse">
        <div class="panel-heading">
@@ -33,9 +37,9 @@
                 <tbody>
                   <tr ng-repeat="project in data" class="gradeA odd" role="row">
                       <td>
-                        <button ng-click="navigateToStudy(project.Proj)" style="height:100%; width:100%;" class="btn btn-primary">{$ project.Proj $}</button>
+                        <button ng-click="navigateToProject(project.Proj)" style="height:100%; width:100%;" class="btn btn-primary">{$ project.Proj $}</button>
                       </td>
-                      <td ng-repeat="key in keys.slice(1, keys.length)" style="">
+                      <td ng-repeat="key in keys.slice(1, keys.length)">
                         {$ project[key] $}
                       </td>
                   </tr>

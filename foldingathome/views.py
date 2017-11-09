@@ -24,6 +24,8 @@ def fah_studies_table(request):
 def fah_study(request):
     return render(request, 'fah-study.html')
 
+def fah_project(request):
+    return render(request, 'fah-project.html')
 
 def fah_completed(request):
     return render(request, 'fah-completed.html')

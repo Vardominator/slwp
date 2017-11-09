@@ -1,5 +1,12 @@
 var fahApp = angular.module('fahApp', ['ngRoute', 'ngTableToCsv']);
 
+fahApp.config([
+    '$httpProvider',
+    function ($httpProvider){
+        $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+        $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+    }
+]);
 fahApp.config(function($interpolateProvider) {
   $interpolateProvider.startSymbol('{$');
   $interpolateProvider.endSymbol('$}');
@@ -15,6 +22,10 @@ fahApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $
         templateUrl: '/foldingathome/fah-study.html',
         controller: 'studyController'
     })
+    .when('/:study/:project', {
+        templateUrl: '/foldingathome/fah-project.html',
+        controller: 'projectController'
+    })
 }])
 
 fahApp.factory('service', function($http){
@@ -23,7 +34,13 @@ fahApp.factory('service', function($http){
             return result.data
         })
     }
-    return {getProjectSummary: getProjectSummary}
+    var getRunSummary = function(study, project){
+        return $http({method: "GET", url:'/foldingathome/api/' + study + '_project_run_summary/?project=' + project}).then(function(result){
+            return result.data
+        })
+    }
+    return {getProjectSummary: getProjectSummary,
+            getRunSummary: getRunSummary}
 });
 
 // main controller for fah studies, navigates to individual studies
@@ -57,60 +74,65 @@ fahApp.controller('mainController',
         }
 
         $scope.navigateToStudy = function(study){
-            $location.path("/" + study).search({study:study});   
+            $location.path("/" + study).search({study:study})   
         }
     }
 )
 
-// controller for fah study table, navigates to individual clones
+// controller for fah study table, navigates to project
 fahApp.controller('studyController', ['$scope', '$routeParams', '$http', '$location', '$route', '$window', 'service',
     function($scope, $routeParams, $http, $location, $route, $window, service){
-        $scope.study = $routeParams.study;
+        $scope.study = $routeParams.study
         $scope.receivedResponse = 0
         $scope.retrieveProjectList = function(){
-            var projectSummaryPromise = service.getProjectSummary($scope.study)
-            projectSummaryPromise.then(function(result){
-                $scope.data = result
-                $scope.keys = Object.keys($scope.data[0])
-                $scope.receivedResponse = 1
-            });
+            // var projectSummaryPromise = service.getProjectSummary($scope.study)
+            // var projectSummaryPromise = service.test()
+            // projectSummaryPromise.then(function(result){
+            //     $scope.data = result
+            //     $scope.keys = Object.keys($scope.data[0])
+            //     $scope.receivedResponse = 1
+            // });
+            $scope.data = [{'Proj': 8202}]
+            $scope.keys = Object.keys($scope.data[0])
+            $scope.receivedResponse = 1
         }
+
+        // navigate to study
+        $scope.navigateToProject = function(project){
+            console.log(project)
+            $location.path("/" + $scope.study + "/" + project).search({project:project})   
+        }        
+
+        // navigate back
+        $scope.backToStudiesTable = function() {
+            window.history.back(-1)
+        };
     }
 ])
 
-// fahApp.config(
-//     function ($routeProvider){
-//         $routeProvider
-//             .when("/", {
-//              templateUrl: '/foldingathome/fah-studies.html',
-//                 controller: 'mainController'
-//             })
-//             .when("/fah-study", {
-//                 templateUrl: '/foldingathome/fah-study.html',
-//                 controller: 'fahStudyController'
-//             })
-//             .when("/fah-project", {
-//                 templateUrl: '/foldingathome/fah-project.html',
-//                 controller: 'fahProjectController'
-//             })
-//             .when("/fah-clone", {
-//                 templateUrl: '/foldingathome/fah-clone.html',
-//                 controller: 'fahCloneController'
-//             })
-//             .when("/fah-run", {
-//                 templateUrl: '/foldingathome/fah-run.html',
-//                 controller: 'fahRunController'
-//             });
-//     }
-// );
-
-fahApp.config([
-    '$httpProvider',
-    function ($httpProvider){
-        $httpProvider.defaults.xsrfCookieName = 'csrftoken';
-        $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+// controller for project table, navigates to run
+fahApp.controller('projectController', ['$scope', '$routeParams', '$http', '$location', '$route', '$window', 'service',
+    function($scope, $routeParams, $http, $location, $route, $window, service){
+        $scope.study = $routeParams.study
+        $scope.project = $routeParams.project
+        $scope.receivedResponse = 0
+        $scope.retrieveRunList = function(){
+            var runSummaryPromise = service.getRunSummary($scope.study, $scope.project)
+            projectSummaryPromise.then(function(result){
+                // $scope.data = result
+                // $scope.keys = Object.keys($scope.data[0])
+                // $scope.receivedResponse = 1
+            });
+        }
+        $scope.backToStudiesTable = function() {
+            window.history.back(-2)
+        };
+        $scope.backToProjectsTable = function() {
+            window.history.back(-1)
+        };
     }
-]);
+])
+
 
 
 // helpers
