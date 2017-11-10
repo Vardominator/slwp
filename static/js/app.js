@@ -91,8 +91,8 @@ fahApp.controller('mainController',
 )
 
 // CONTROLLER FOR SELECTED STUDY, NAVIGATES TO PROJECT
-fahApp.controller('studyController', ['$scope', '$routeParams', '$http', '$location', '$route', '$window', 'service',
-    function ($scope, $routeParams, $http, $location, $route, $window, service) {
+fahApp.controller('studyController', ['$scope', '$routeParams', '$http', '$location', '$route', '$window', 'service', '$cacheFactory',
+    function ($scope, $routeParams, $http, $location, $route, $window, service, $cacheFactory) {
         $scope.study = $routeParams.study
         $scope.receivedResponse = 0
         $scope.retrieveProjectList = function () {
