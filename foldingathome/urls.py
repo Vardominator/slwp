@@ -21,5 +21,6 @@ urlpatterns = [
     url(r'^fah-study.html', foldingathome_views.fah_study),
     url(r'^fah-project.html', foldingathome_views.fah_project),
     url(r'^fah-run.html', foldingathome_views.fah_run),
+    url(r'^fah-clone.html', foldingathome_views.fah_clone),
     url(r'^api/', include(router.urls))
 ]

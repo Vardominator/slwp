@@ -2,10 +2,11 @@
 
 ## TODOs
 ### Front-end
-* Upgrade to new bootstrap admin theme (DONE)
-* Added spinner load for project summary api call (DONE)
+* Clone filter in clone summary page
 * Remove unnecessary wrapbootstrap script imports
 * Update bower.json with all active packages
+* Upgrade to new bootstrap admin theme (DONE)
+* Added spinner load for project summary api call (DONE)
 * Breadcrumb for page navigation (DONE)
 * CSV download for tables (DONE)
 * Cache and Refresh data tables (DONE)
@@ -19,3 +20,7 @@
   * add condition for new db in db_for_read methid in FahRouter class
   * appending to DATABASES dictionary in settings.py
   * migrating, applying migrations
+
+## 2.0 Goals
+* Plot styling options
+* Contour plots with dssp column

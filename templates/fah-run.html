@@ -1,14 +1,68 @@
 <ol class="breadcrumb" style="margin-top:-22px">
     <li>
-        <a href="#" ng-click="backToStudiesTable()">Active Studies</a>
+        <a href="#" ng-click="backToStudiesTable()">STUDIES</a>
     </li>
     <li>
         <a href='#' ng-click="backToProjectsTable()">{$ study $}</a>
     </li>
     <li>
-        <a href='#' ng-click="backToRunsTable()">Project {$ project $}</a>
+        <a href='#' ng-click="backToRunsTable()">PROJECT {$ project $}</a>
     </li>
     <li>
-        Run {$ run $}
+        RUN {$ run $}
     </li>
 </ol>
+<div class="col-lg-12" ng-init="retrieveCloneList()">
+        <div class="panel panel-default" ng-switch="receivedResponse">
+                <div class="panel-heading">
+                        <h4>Clone Summary</h4>
+                        <div class="html5buttons">
+                                <div class="dt-buttons btn-group">
+                                        <a class="btn btn-default buttons-csv buttons-html5 btn-sm" ng-click="refreshCloneSummary()" tabindex="1" aria-controls="datatable1">
+                                                <i class="fa fa-refresh"></i>
+                                        </a>
+                                        <a class="btn btn-default buttons-csv buttons-html5 btn-sm" ng-click="csv.generate()" ng-href="{$ csv.link() $}" download="clone_summary.csv"
+                                                tabindex="0" aria-controls="datatable1" href="#">
+                                                <i class="fa fa-download"></i>
+                                        </a>
+                                </div>
+                        </div>
+                </div>
+                <div class="panel-body loader-demo" ng-switch-when="0">
+                        <div class="pacman">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                        </div>
+                </div>
+                <div class="panel-body" ng-switch-when="1">
+                        <div class="table-responsive">
+                                <div id="datatable1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+
+                                        <table export-csv="csv" separator="," id="datatable1" class="table table-striped table-hover dataTable no-footer dtr-inline"
+                                                aria-describedby="datatable1_info" role="grid" style="width: 1613px;">
+                                                <thead>
+                                                        <tr role="row">
+                                                                <th ng-repeat="key in keys" class="sorting_asc" tabindex="0" aria-controls="datatable1" rowspan="1" colspan="1" style="width: 290px;"
+                                                                        aria-sort="ascending">
+                                                                        {$ key $}
+                                                                </th>
+                                                </thead>
+                                                <tbody>
+                                                        <tr ng-repeat="clone in data" class="gradeA odd" role="row">
+                                                                <td>
+                                                                        <button ng-click="navigateToClone(clone.Clone)" style="height:100%; width:100%;" class="btn btn-primary">{$ clone.Clone $}</button>
+                                                                </td>
+                                                                <td ng-repeat="key in keys.slice(1, keys.length)">
+                                                                        {$ clone[key] $}
+                                                                </td>
+                                                        </tr>
+                                                </tbody>
+                                        </table>
+                                </div>
+                        </div>
+                </div>
+        </div>
+</div>

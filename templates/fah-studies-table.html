@@ -1,5 +1,5 @@
 <ol class="breadcrumb" style="margin-top:-22px">
-    <li>Active Studies
+    <li>STUDIES
     </li>
  </ol>
 <div class="col-lg-12" ng-init="retrieveProjectList()">
@@ -8,8 +8,12 @@
          <h4>Study Selection</h4>
          <div class="html5buttons">
             <div class="dt-buttons btn-group">
-              <a class="btn btn-default buttons-csv buttons-html5 btn-sm" ng-click="csv.generate()" ng-href="{$ csv.link() $}" download="studies.csv" tabindex="0" aria-controls="datatable1" href="#">
-                <span>CSV</span>
+              <a class="btn btn-default buttons-csv buttons-html5 btn-sm" ng-click="refreshStudiesSummary()" tabindex="1" aria-controls="datatable1">
+                <i class="fa fa-refresh"></i>
+              </a>
+              <a class="btn btn-default buttons-csv buttons-html5 btn-sm" ng-click="csv.generate()" ng-href="{$ csv.link() $}" download="studies_summary.csv"
+                tabindex="0" aria-controls="datatable1" href="#">
+                <i class="fa fa-download"></i>
               </a>
             </div>
           </div>
