@@ -33,7 +33,6 @@ class BcheSerializer(serializers.ModelSerializer):
             'rg_pro',
             'E_vdw',
             'E_qq',
-            'dssp',
             'Nhelix',
             'Nbeta',
             'Ncoil',

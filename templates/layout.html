@@ -16,9 +16,13 @@
   <!-- =============== NVD3 ===============-->
   <script src="{% static 'bower_components/d3/d3.js' %}"></script>
   <script src="{% static 'bower_components/nvd3/build/nv.d3.js' %}"></script>
-  <!-- or use another assembly -->
   <script src="{% static 'bower_components/angular-nvd3/dist/angular-nvd3.js' %}"></script>
+  <script src="{% static 'bower_components/save-svg-as-png/saveSvgAsPng.js' %}"></script>
   <link rel="stylesheet" href="{% static 'bower_components/nvd3/build/nv.d3.css' %}">
+
+  <!-- =============== SLIDER =============== -->
+  <link rel="stylesheet" type="text/css" href="{% static 'bower_components/angularjs-slider/dist/rzslider.css' %}">
+  <script src="{% static 'bower_components/angularjs-slider/dist/rzslider.min.js' %}"></script>
 
   <!-- =============== WRAP BOOTSTRAP ===============-->
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -35,6 +39,8 @@
   <link rel="stylesheet" href="{% static 'vendor/whirl/dist/whirl.css' %}">
   <link rel="stylesheet" href="{% static 'vendor/loaders.css/loaders.css' %}">
   <link rel="stylesheet" href="{% static 'vendor/spinkit/css/spinkit.css' %}">
+  <!-- SLIDERS -->
+  <link rel="stylesheet" href="{% static 'vendor/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css' %}">
 
   <!-- =============== PAGE VENDOR STYLES ===============-->
   <!-- WEATHER ICONS-->

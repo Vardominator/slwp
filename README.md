@@ -2,6 +2,11 @@
 
 ## TODOs
 ### Front-end
+* load local data into tables unless refresh button is pressed which calls api and overwrites local data
+* min max filters for all parameters (DONE)
+* Change frame to column name to time 
+* remove dssp output (DONE)
+* center data values (DONE)
 * Clone filter in clone summary page
 * Remove unnecessary wrapbootstrap script imports
 * Update bower.json with all active packages
@@ -24,3 +29,6 @@
 ## 2.0 Goals
 * Plot styling options
 * Contour plots with dssp column
+
+### Back-end
+* min and max values (runs and projects)

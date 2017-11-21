@@ -1,4 +1,4 @@
-var fahApp = angular.module('fahApp', ['ngRoute', 'ngTableToCsv', 'nvd3']);
+var fahApp = angular.module('fahApp', ['ngRoute', 'ngTableToCsv', 'nvd3', 'rzModule']);
 
 fahApp.config([
     '$httpProvider',
@@ -110,27 +110,69 @@ fahApp.controller('studyController', ['$scope', '$routeParams', '$http', '$locat
     function ($scope, $routeParams, $http, $location, $route, $window, service, $cacheFactory) {
         $scope.study = $routeParams.study
         $scope.receivedResponse = 0
+        
         $scope.retrieveProjectList = function () {
-            $scope.apiUrl = '/foldingathome/api/' + $scope.study + '_project_summary/'
-            var projectSummaryPromise = service.getProjectSummary($scope.apiUrl)
-            projectSummaryPromise.then(function (result) {
-                $scope.data = result
-                $scope.keys = Object.keys($scope.data[0])
-                $scope.receivedResponse = 1
-            });
+            $scope.data = [{Proj: 8202}]
+            $scope.keys = Object.keys($scope.data[0])
+            console.log($scope.keys)
+            $scope.receivedResponse = 1            
+            // $scope.apiUrl = '/foldingathome/api/' + $scope.study + '_project_summary/'
+            // var projectSummaryPromise = service.getProjectSummary($scope.apiUrl)
+            // projectSummaryPromise.then(function (result) {
+            //     $scope.data = result
+            //     $scope.keys = Object.keys($scope.data[0])
+            //     $scope.receivedResponse = 1
+            // });
         }
         $scope.refreshProjectSummary = function(){
             var cache = $cacheFactory.get('$http')
             cache.remove($scope.apiUrl)
             $scope.retrieveProjectList()
         }
+
+        $scope.onSliderChange = function() {
+            // user finished sliding a handle
+            $scope.filteredData = $scope.data.slice(0)
+            var key = $scope.activeKey
+            var min = $scope.slider.min
+            var max = $scope.slider.max
+            $scope.filteredData = $scope.filteredData.filter(function(p){
+                return p[key] >= min && p[key] <= max
+            })
+        }
+        $scope.slider = {
+            value: 0,
+            options: {
+              floor: 0,
+              ceil: 0,
+              step: 0.01,
+              precision: 2,
+              onEnd: $scope.onSliderChange
+            }
+        }
+        $scope.changeActiveKey = function(key){
+            $scope.filteredData = $scope.data.slice(0)
+            $scope.activeKey = key
+            var maxVal = Math.max.apply(Math, $scope.data.map(function(row) { return row[key]; }))
+            var minVal = Math.min.apply(Math, $scope.data.map(function(row) { return row[key]; }))
+            if(minVal % 1 == 0){
+                $scope.slider.options.step = 1
+            }else{
+                $scope.slider.options.step = 0.01
+            }     
+            $scope.slider.max = maxVal
+            $scope.slider.min = minVal
+            $scope.slider.options.ceil = maxVal
+            $scope.slider.options.floor = minVal
+        }
+
         // NAVIGATE TO PROJECT CLICK
         $scope.navigateToProject = function (project) {
             $location.path("/" + $scope.study + "/" + project).search({ project: project })
         }
-        $scope.backToStudiesTable = function () {
-            window.history.back(-1)
-        };
+        // NAVIGATE BACK USING BREADCRUMB
+        $scope.backToStudiesTable = function () { window.history.back() };
+
     }
 ])
 
@@ -146,6 +188,7 @@ fahApp.controller('projectController', ['$scope', '$routeParams', '$http', '$loc
             $scope.receivedResponse = 0
             runSummaryPromise.then(function (result) {
                 $scope.data = result
+                $scope.filteredData = $scope.data.slice(0)
                 $scope.keys = Object.keys($scope.data[0])
                 $scope.receivedResponse = 1
             });
@@ -156,13 +199,50 @@ fahApp.controller('projectController', ['$scope', '$routeParams', '$http', '$loc
             $scope.retrieveRunList()
         }
 
+        $scope.onSliderChange = function() {
+            // user finished sliding a handle
+            $scope.filteredData = $scope.data.slice(0)
+            var key = $scope.activeKey
+            var min = $scope.slider.min
+            var max = $scope.slider.max
+            $scope.filteredData = $scope.filteredData.filter(function(p){
+                return p[key] >= min && p[key] <= max
+            })
+        }
+        $scope.slider = {
+            value: 0,
+            options: {
+              floor: 0,
+              ceil: 0,
+              step: 0.01,
+              precision: 2,
+              onEnd: $scope.onSliderChange
+            }
+        }
+        $scope.changeActiveKey = function(key){
+            $scope.filteredData = $scope.data.slice(0)
+            $scope.activeKey = key
+            var maxVal = Math.max.apply(Math, $scope.data.map(function(row) { return row[key]; }))
+            var minVal = Math.min.apply(Math, $scope.data.map(function(row) { return row[key]; }))
+            if(minVal % 1 == 0){
+                $scope.slider.options.step = 1
+            }else{
+                $scope.slider.options.step = 0.01
+            }     
+            $scope.slider.max = maxVal
+            $scope.slider.min = minVal
+            $scope.slider.options.ceil = maxVal
+            $scope.slider.options.floor = minVal
+        }
+
         // NAVIGATE TO RUN CLICK
         $scope.navigateToRun = function (run) {
             $location.path("/" + $scope.study + "/" + $scope.project + "/" + run).search({ run: run })
         }
-        $scope.backToProjectsTable = function () {
-            window.history.back(-1)
-        };
+
+        // NAVIGATE BACK USING BREADCRUMB
+        $scope.backToStudiesTable = function () { window.history.go(-2) };
+        $scope.backToProjectsTable = function () { window.history.back() };
     }
 ])
 
@@ -179,6 +259,7 @@ fahApp.controller('runController', ['$scope', '$routeParams', '$http', '$locatio
             var cloneSummaryPromise = service.getCloneSummary($scope.apiUrl)
             cloneSummaryPromise.then(function (result) {
                 $scope.data = result
+                $scope.filteredData = $scope.data.slice(0)
                 $scope.keys = Object.keys($scope.data[0])
                 $scope.receivedResponse = 1
             });
@@ -189,13 +270,51 @@ fahApp.controller('runController', ['$scope', '$routeParams', '$http', '$locatio
             $scope.retrieveCloneList()
         }
 
+        $scope.onSliderChange = function() {
+            // user finished sliding a handle
+            $scope.filteredData = $scope.data.slice(0)
+            var key = $scope.activeKey
+            var min = $scope.slider.min
+            var max = $scope.slider.max
+            $scope.filteredData = $scope.filteredData.filter(function(p){
+                return p[key] >= min && p[key] <= max
+            })
+        }
+        $scope.slider = {
+            value: 0,
+            options: {
+              floor: 0,
+              ceil: 0,
+              step: 0.01,
+              precision: 2,
+              onEnd: $scope.onSliderChange
+            }
+        }
+        $scope.changeActiveKey = function(key){
+            $scope.filteredData = $scope.data.slice(0)
+            $scope.activeKey = key
+            var maxVal = Math.max.apply(Math, $scope.data.map(function(row) { return row[key]; }))
+            var minVal = Math.min.apply(Math, $scope.data.map(function(row) { return row[key]; }))
+            if(minVal % 1 == 0){
+                $scope.slider.options.step = 1
+            }else{
+                $scope.slider.options.step = 0.01
+            }     
+            $scope.slider.max = maxVal
+            $scope.slider.min = minVal
+            $scope.slider.options.ceil = maxVal
+            $scope.slider.options.floor = minVal
+        }
+
         // NAVIGATE TO CLONE DETAIL
         $scope.navigateToClone = function (clone) {
             $location.path("/" + $scope.study + "/" + $scope.project + "/" + $scope.run + "/" + clone).search({ clone: clone })
         }
-        $scope.backToRunsTable = function () {
-            window.history.back(-1)
-        };
+
+        // NAVIGATE BACK USING BREADCRUMB
+        $scope.backToStudiesTable = function () { window.history.go(-3) };
+        $scope.backToProjectsTable = function () { window.history.go(-2) };
+        $scope.backToRunsTable = function () { window.history.back() };
     }
 ])
 
@@ -214,11 +333,12 @@ function ($scope, $routeParams, $http, $location, $route, $window, service, $cac
         var cloneDetailPromise = service.getCloneDetail($scope.apiUrl)
         cloneDetailPromise.then(function (result) {
             $scope.data = result
+            $scope.filteredData = $scope.data.slice(0)
             $scope.keys = Object.keys($scope.data[0])
             $scope.plotKeys = $scope.keys.filter(function(key){
                 return ["proj", "run", "clone", "frame", "dssp", "dateacquried", "timeacquired"].indexOf(key) === -1
             })
-            console.log($scope.plotKeys)
+            $scope.currentAttribute = $scope.plotKeys[0]
             $scope.receivedResponse = active
         });
     }
@@ -228,19 +348,58 @@ function ($scope, $routeParams, $http, $location, $route, $window, service, $cac
         $scope.retrieveCloneDetail(active)
     }
 
+    $scope.downloadPlot = function(){
+        saveSvgAsPng(document.getElementById("plot"), "plot.png")
+    }
+
+    $scope.onSliderChange = function() {
+        // user finished sliding a handle
+        $scope.filteredData = $scope.data.slice(0)
+        var key = $scope.activeKey
+        var min = $scope.slider.min
+        var max = $scope.slider.max
+        $scope.filteredData = $scope.filteredData.filter(function(p){
+            return p[key] >= min && p[key] <= max
+        })
+    }
+    $scope.slider = {
+        value: 0,
+        options: {
+          floor: 0,
+          ceil: 0,
+          step: 0.001,
+          precision: 3,
+          onEnd: $scope.onSliderChange
+        }
+    }
+    $scope.changeActiveKey = function(key){
+        $scope.filteredData = $scope.data.slice(0)
+        $scope.activeKey = key
+        var maxVal = Math.max.apply(Math, $scope.data.map(function(row) { return row[key]; }))
+        var minVal = Math.min.apply(Math, $scope.data.map(function(row) { return row[key]; }))
+        if(minVal % 1 == 0){
+            $scope.slider.options.step = 1
+        }else{
+            $scope.slider.options.step = 0.001
+        }     
+        $scope.slider.max = maxVal
+        $scope.slider.min = minVal
+        $scope.slider.options.ceil = maxVal
+        $scope.slider.options.floor = minVal
+    }
+
     // SWITCH BETWEEN DATA TABLE AND PLOT
     $scope.tablePlotSwitch = function(active){
         $scope.receivedResponse = active
     }
 
-    $scope.backToClonesTable = function () {
-        window.history.back(-1)
-    };
-
+    // NAVIGATE BACK USING BREADCRUMB
+    $scope.backToStudiesTable = function () { window.history.go(-4) };
+    $scope.backToProjectsTable = function () { window.history.go(-3) };
+    $scope.backToRunsTable = function () { window.history.go(-2) };
+    $scope.backToClonesTable = function () { window.history.back() };
 
     // ALL THINGS PLOTTING
-    // TODO: IMPLEMENT BUTTON DROP DOWN SWITCH FOR Y AXIS SELECTION
-
     $scope.loadChartData = function (key){
         $scope.currentAttribute = key
         var chartData = [{"key":$scope.currentAttribute, "values":[]}]
