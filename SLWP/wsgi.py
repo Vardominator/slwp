@@ -12,8 +12,6 @@ import sys
 
 from django.core.wsgi import get_wsgi_application
 
-sys.path.append("/home/varderes/Desktop/GitHub/SorinLabWebPlatform/SLWP_env/SLWP")
-
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "SLWP.settings")
 
 application = get_wsgi_application()

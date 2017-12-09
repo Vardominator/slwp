@@ -8,9 +8,6 @@ from django_filters.rest_framework import DjangoFilterBackend
 def fah_information(request):
     return render(request, 'fah-information.html')
 
-def redirect_to_fah_information():
-    return redirect('/foldingathome/fah-information.html')
-
 def fah_studies(request):
     return render(request, 'fah-studies.html')
 
