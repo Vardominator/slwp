@@ -15,23 +15,23 @@ fahApp.config(function ($interpolateProvider) {
 fahApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     $routeProvider
         .when('/', {
-            templateUrl: '/foldingathome/fah-studies-table.html',
+            templateUrl: '/slwp/foldingathome/fah-studies-table.html',
             controller: 'mainController'
         })
         .when('/:study', {
-            templateUrl: '/foldingathome/fah-study.html',
+            templateUrl: '/slwp/foldingathome/fah-study.html',
             controller: 'studyController'
         })
         .when('/:study/:project', {
-            templateUrl: '/foldingathome/fah-project.html',
+            templateUrl: '/slwp/foldingathome/fah-project.html',
             controller: 'projectController'
         })
         .when('/:study/:project/:run', {
-            templateUrl: '/foldingathome/fah-run.html',
+            templateUrl: '/slwp/foldingathome/fah-run.html',
             controller: 'runController'
         })
         .when('/:study/:project/:run/:clone', {
-            templateUrl: '/foldingathome/fah-clone.html',
+            templateUrl: '/slwp/foldingathome/fah-clone.html',
             controller: 'cloneController'
         })
 }])
@@ -69,7 +69,7 @@ fahApp.factory('service', function ($http, $cacheFactory) {
 fahApp.controller('mainController',
     function ($scope, $location, $http) {
         $scope.retrieveProjectList = function () {
-            $http.get('/foldingathome/api/projectList')
+            $http.get('/slwp/foldingathome/api/projectList')
                 .then(function (data) {
                     $scope.projectList = data.data
                     $scope.studies = buildTable($scope.projectList)
@@ -116,7 +116,7 @@ fahApp.controller('studyController', ['$scope', '$routeParams', '$http', '$locat
             $scope.keys = Object.keys($scope.data[0])
             console.log($scope.keys)
             $scope.receivedResponse = 1            
-            // $scope.apiUrl = '/foldingathome/api/' + $scope.study + '_project_summary/'
+            // $scope.apiUrl = '/slwp/foldingathome/api/' + $scope.study + '_project_summary/'
             // var projectSummaryPromise = service.getProjectSummary($scope.apiUrl)
             // projectSummaryPromise.then(function (result) {
             //     $scope.data = result
@@ -183,7 +183,7 @@ fahApp.controller('projectController', ['$scope', '$routeParams', '$http', '$loc
         $scope.project = $routeParams.project
         $scope.receivedResponse = 0
         $scope.retrieveRunList = function () {
-            $scope.apiUrl = '/foldingathome/api/' + $scope.study + '_project_run_summary/?project=' + $scope.project
+            $scope.apiUrl = '/slwp/foldingathome/api/' + $scope.study + '_project_run_summary/?project=' + $scope.project
             var runSummaryPromise = service.getRunSummary($scope.apiUrl)
             $scope.receivedResponse = 0
             runSummaryPromise.then(function (result) {
@@ -254,7 +254,7 @@ fahApp.controller('runController', ['$scope', '$routeParams', '$http', '$locatio
         $scope.run = $routeParams.run
         $scope.receivedResponse = 0
         $scope.retrieveCloneList = function () {
-            $scope.apiUrl = '/foldingathome/api/' + $scope.study + '_project_run_clone_summary/?project=' + $scope.project + 
+            $scope.apiUrl = '/slwp/foldingathome/api/' + $scope.study + '_project_run_clone_summary/?project=' + $scope.project + 
                                                                                               '&run=' + $scope.run;
             var cloneSummaryPromise = service.getCloneSummary($scope.apiUrl)
             cloneSummaryPromise.then(function (result) {
@@ -327,7 +327,7 @@ function ($scope, $routeParams, $http, $location, $route, $window, service, $cac
     $scope.clone = $routeParams.clone
     $scope.receivedResponse = 0
     $scope.retrieveCloneDetail = function (active) {
-        $scope.apiUrl = '/foldingathome/api/' + $scope.study + '_project_run_clone_detail/?project=' + $scope.project + 
+        $scope.apiUrl = '/slwp/foldingathome/api/' + $scope.study + '_project_run_clone_detail/?project=' + $scope.project + 
                                                                                           '&run=' + $scope.run +
                                                                                           '&clone=' + $scope.clone;
         var cloneDetailPromise = service.getCloneDetail($scope.apiUrl)
