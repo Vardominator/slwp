@@ -111,18 +111,14 @@ fahApp.controller('studyController', ['$scope', '$routeParams', '$http', '$locat
         $scope.study = $routeParams.study
         $scope.receivedResponse = 0
         
-        $scope.retrieveProjectList = function () {
-            $scope.data = [{Proj: 8202}]
-            $scope.keys = Object.keys($scope.data[0])
-            console.log($scope.keys)
-            $scope.receivedResponse = 1            
-            // $scope.apiUrl = '/slwp/foldingathome/api/' + $scope.study + '_project_summary/'
-            // var projectSummaryPromise = service.getProjectSummary($scope.apiUrl)
-            // projectSummaryPromise.then(function (result) {
-            //     $scope.data = result
-            //     $scope.keys = Object.keys($scope.data[0])
-            //     $scope.receivedResponse = 1
-            // });
+        $scope.retrieveProjectList = function () {        
+            $scope.apiUrl = '/slwp/foldingathome/api/' + $scope.study + '_project_summary/'
+            var projectSummaryPromise = service.getProjectSummary($scope.apiUrl)
+            projectSummaryPromise.then(function (result) {
+                $scope.data = result
+                $scope.keys = Object.keys($scope.data[0])
+                $scope.receivedResponse = 1
+            });
         }
         $scope.refreshProjectSummary = function(){
             var cache = $cacheFactory.get('$http')

@@ -1,2 +1,5 @@
 *.pyc
 .vscode/settings.json
+*.json
+*.sqlite
+/.vs
