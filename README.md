@@ -1,34 +1,25 @@
-# Sorin Lab Web Platform
+# Introduction
+Welcome to the Sorin Lab Web Platform repository! You are either Dr. Sorin or a student researcher with top-notch development skills ready to contribute to a high-utility research tool. Below is only a quick setup guide. If you wish to create APIs for new Folding@Home studies or entirely new applications within the web platform, please refer to the Wiki. 
 
-## TODOs
-### Front-end
-* load local data into tables unless refresh button is pressed which calls api and overwrites local data
-* min max filters for all parameters (DONE)
-* Change frame to column name to time 
-* remove dssp output (DONE)
-* center data values (DONE)
-* Clone filter in clone summary page
-* Remove unnecessary wrapbootstrap script imports
-* Update bower.json with all active packages
-* Upgrade to new bootstrap admin theme (DONE)
-* Added spinner load for project summary api call (DONE)
-* Breadcrumb for page navigation (DONE)
-* CSV download for tables (DONE)
-* Cache and Refresh data tables (DONE)
+# Prerequisites
+First and foremost, you must have a development environment set up on Banana. Contact the lab’s system administrator and ask him or her to set one up for you. Your environment’s domain should be:
 
-## Instructions for the following must be written
-* Installing python3 and pip
-* Setting up, activating, and deactivating a virtual environment
-* Using bower to install JS dependencies with bower.json
-* How to add components from wrapbootsrap theme to pages
-* Adding a database connection to the project
-  * add condition for new db in db_for_read methid in FahRouter class
-  * appending to DATABASES dictionary in settings.py
-  * migrating, applying migrations
+```http://folding.cnsm.csulb.edu/[YOUR NAME]/slwp/```
 
-## 2.0 Goals
-* Plot styling options
-* Contour plots with dssp column
+Second, you need to have ```sshfs``` installed on your lab computer. Once set up, contact the system administrator again to recieve an identity file. This will allow you to mount your fork on your lab computer and directly edit the source.
 
-### Back-end
-* min and max values (runs and projects)
+# Installation
+* Fork this repository
+* Pull the forked repository into your personal environment on Banana
+* In ```templates/index.html```, change the url to ```/[YOUR NAME]/slwp/home.html/```
+
+# Development
+To mount the project onto your machine, execute the following command:
+
+```sshfs server@134.139.52.4:/home2/www/slwp-[YOUR NAME]-env/slwp <[YOUR LOCAL DIRECTORY]> -o IdentityFile=<[PATH TO IDENTITY FILE]>```
+
+YOUR LOCAL DIRECTORY: Location on your machine where you want to mount the project to
+
+PATH TO IDENTITY FILE: Location of the identity file that was given to you by the system administrator
+
+Once you are done making edits, you can merge request with the master branch.
