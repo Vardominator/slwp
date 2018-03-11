@@ -9,7 +9,7 @@ First and foremost, you must have a development environment set up on Banana. Co
 Second, you need to have ```sshfs``` installed on your lab computer. Once set up, contact the system administrator again to recieve an identity file. This will allow you to mount your fork on your lab computer and directly edit the source.
 
 # Installation
-* Fork this repository
+* Fork this repository => CHECKOUT BRANCH
 * Pull the forked repository into your personal environment on Banana
 * In ```templates/index.html```, change the url to ```/[YOUR NAME]/slwp/home.html/```
 
